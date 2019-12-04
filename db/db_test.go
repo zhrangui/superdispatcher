@@ -1,55 +1,45 @@
 package db
 
 import (
-	"bufio"
 	"database/sql"
 	"flag"
 	"fmt"
-	"io"
-	"os"
+	"log"
 	"testing"
+
+	_ "github.com/denisenkom/go-mssqldb"
+)
+
+var (
+	debug         = flag.Bool("debug", false, "enable debugging")
+	user          = flag.String("user", "DevLogin", "the database user")
+	password      = flag.String("password", "LoginDev1!", "the database password")
+	port     *int = flag.Int("port", 1433, "the database port")
+	server        = flag.String("server", "CTV-PARALLEL5.Production.CTV.ca", "the database server")
+	database      = flag.String("database", "VideoWeb", "database name")
 )
 
 func TestInvalidConnectionString(t *testing.T) {
-	var (
-		userid   = flag.String("U", "WebSite", "login_id")
-		password = flag.String("P", "LoginDev1!", "password")
-		server   = flag.String("S", "CTV-PARALLEL5.Production.CTV.ca", "server_name[\\instance_name]")
-		database = flag.String("d", "VideoWeb", "db_name")
-	)
 	flag.Parse()
 
-	dsn := "server=" + *server + ";user id=" + *userid + ";password=" + *password + ";database=" + *database
-	db, err := sql.Open("mssql", dsn)
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;database=%s", *server, *user, *password, *database)
+
+	conn, err := sql.Open("mssql", connString)
 	if err != nil {
-		fmt.Println("Cannot connect: ", err.Error())
-		return
+		log.Fatal("Open connection failed:", err.Error())
 	}
-	defer db.Close()
-	err = db.Ping()
+	defer conn.Close()
+
+	rows, err := conn.Query("SELECT COUNT(*) FROM AtlasUsers")
 	if err != nil {
-		fmt.Println("Cannot connect: ", err.Error())
-		return
+		t.Fatal("Prepare failed:", err.Error())
 	}
-	r := bufio.NewReader(os.Stdin)
-	for {
-		_, err = os.Stdout.Write([]byte("> "))
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		cmd, err := r.ReadString('\n')
-		if err != nil {
-			if err == io.EOF {
-				fmt.Println()
-				return
-			}
-			fmt.Println(err)
-			return
-		}
-		err = exec(db, cmd)
-		if err != nil {
-			fmt.Println(err)
-		}
+	var count int
+	for rows.Next() {
+		rows.Scan(&count)
+	}
+
+	if count <= 0 {
+		t.Fail()
 	}
 }
