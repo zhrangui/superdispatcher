@@ -4,7 +4,18 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
+	
+	_ "../config"
+	"github.com/spf13/viper"
 )
+
+var (
+	connString = viper.GetString("connectionString")
+)
+
+func init() {
+
+}
 
 func exec(db *sql.DB, cmd string) error {
 	rows, err := db.Query(cmd)
