@@ -1,4 +1,0 @@
-{
-    "debug": false,
-    "connectionString": "server=CTV-DB1-MNDB.production.ctv.ca;user id=WebSite;password=bluedog7;database=VideoWeb"
-}

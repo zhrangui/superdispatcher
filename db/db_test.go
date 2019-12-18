@@ -3,6 +3,8 @@ package db
 import (
 	"testing"
 
+	//_ "../config"
+
 	"database/sql"
 	_ "github.com/denisenkom/go-mssqldb"
 

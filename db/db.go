@@ -1,11 +1,12 @@
 package db
 
 import (
+	_ "superdispatcher/config"
+
 	"database/sql"
 	"fmt"
 	"time"
-	
-	_ "../config"
+
 	"github.com/spf13/viper"
 )
 
