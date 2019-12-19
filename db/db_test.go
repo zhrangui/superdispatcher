@@ -1,18 +1,19 @@
 package db
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 
-	//_ "../config"
+	"superdispatcher/config"
 
 	"database/sql"
 	_ "github.com/denisenkom/go-mssqldb"
-
 )
 
 func TestInvalidConnectionString(t *testing.T) {
 
-	connString := viper.GetString("connectionString")
+	config, _ := config.New("config.staging")
+	connString := config.MSSQL.ConnectionString
 
 	conn, _ := sql.Open("mssql", connString)
 	defer conn.Close()
@@ -23,7 +24,5 @@ func TestInvalidConnectionString(t *testing.T) {
 		rows.Scan(&count)
 	}
 
-	if count <= 0 {
-		t.Fail()
-	}
+	assert.True(t, count > 1)
 }

@@ -1,9 +1,8 @@
 package config
 
 import (
-	"testing"
-
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestReadConfiguration(t *testing.T) {
