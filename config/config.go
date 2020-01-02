@@ -3,6 +3,8 @@ package config
 import (
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
+
+	"superdispatcher/logger"
 )
 
 type Config struct {
@@ -10,20 +12,29 @@ type Config struct {
 	Logger    *zap.Logger
 }
 
-func New(configName string) (*Constants, error) {
+/*New create configuration*/
+func New(configName string, configPath string) (*Config, error) {
+	var config *Config = new(Config)
 	viper.SetConfigName(configName)
-	viper.AddConfigPath("../resources")
+	viper.AddConfigPath(configPath)
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
 	if err != nil {
 		return nil, err
 	}
-
-	constants := new(Constants)
-	err = viper.Unmarshal(constants)
+	viper.AutomaticEnv()
+	config.Constants = new(Constants)
+	err = viper.Unmarshal(config.Constants)
 	if err != nil {
 		return nil, err
 	}
 
-	return constants, nil
+	config.Logger, err = logger.New(config.Constants.My.LoggerType)
+	if err != nil {
+		return nil, err
+	}
+
+	config.Logger.Info("Config init completes!")
+
+	return config, nil
 }

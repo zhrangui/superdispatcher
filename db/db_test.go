@@ -4,10 +4,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 
-	"superdispatcher/config"
-
 	"database/sql"
 	_ "github.com/denisenkom/go-mssqldb"
+
+	"superdispatcher/config"
 )
 
 func TestInvalidConnectionString(t *testing.T) {

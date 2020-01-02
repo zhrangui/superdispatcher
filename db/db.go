@@ -1,22 +1,10 @@
 package db
 
 import (
-	_ "superdispatcher/config"
-
 	"database/sql"
 	"fmt"
 	"time"
-
-	"github.com/spf13/viper"
 )
-
-var (
-	connString = viper.GetString("connectionString")
-)
-
-func init() {
-
-}
 
 func exec(db *sql.DB, cmd string) error {
 	rows, err := db.Query(cmd)
