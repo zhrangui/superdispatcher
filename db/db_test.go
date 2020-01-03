@@ -12,8 +12,8 @@ import (
 
 func TestInvalidConnectionString(t *testing.T) {
 
-	config, _ := config.New("config.staging")
-	connString := config.MSSQL.ConnectionString
+	config, _ := config.New("config.staging", "../resources")
+	connString := config.Constants.MSSQL.ConnectionString
 
 	conn, _ := sql.Open("mssql", connString)
 	defer conn.Close()

@@ -12,29 +12,33 @@ const (
 	loggerTypeProduction
 )
 
-func New(loggerType int) (*zap.Logger, error) {
-	var (
-		logger *zap.Logger
-		err    error
-	)
+// Logger wrap zap.Logger
+type Logger struct {
+	Zap *zap.Logger
+}
 
+func New(loggerType int) (*Logger, error) {
+	var (
+		err error
+	)
+	logger := new(Logger)
 	switch loggerType {
 	case loggerTypeNop:
-		logger = zap.NewNop()
+		logger.Zap = zap.NewNop()
 	case loggerTypeDevelopment:
-		logger, err = zap.NewDevelopment()
+		logger.Zap, err = zap.NewDevelopment()
 		if err != nil {
 			err = errors.Wrap(err, "failed to initialize development logger")
 			return nil, err
 		}
 	case loggerTypeProduction:
-		logger, err = zap.NewProduction()
+		logger.Zap, err = zap.NewProduction()
 		if err != nil {
 			err = errors.Wrap(err, "failed to initialize production logger")
 			return nil, err
 		}
 	default:
-		logger = zap.NewExample()
+		logger.Zap = zap.NewExample()
 	}
 	return logger, nil
 }

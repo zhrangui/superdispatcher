@@ -2,14 +2,13 @@ package config
 
 import (
 	"github.com/spf13/viper"
-	"go.uber.org/zap"
 
 	"superdispatcher/logger"
 )
 
 type Config struct {
 	Constants *Constants
-	Logger    *zap.Logger
+	Logger    *logger.Logger
 }
 
 /*New create configuration*/
@@ -34,7 +33,7 @@ func New(configName string, configPath string) (*Config, error) {
 		return nil, err
 	}
 
-	config.Logger.Info("Config init completes!")
+	config.Logger.Zap.Info("Config init completes!")
 
 	return config, nil
 }
