@@ -33,7 +33,7 @@ func New(configName string, configPath string) (*Config, error) {
 		return nil, err
 	}
 
-	config.Logger.Zap.Info("Config init completes!")
+	config.Logger.Logger.Info("Config init completes!")
 
 	return config, nil
 }
