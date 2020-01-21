@@ -6,9 +6,10 @@ type Constants struct {
 }
 
 type My struct {
-	LoggerType int
-	Protocal   string
-	IpAddress  string
+	LoggerType  int
+	Protocal    string
+	ServerIP    string
+	HostAddress string
 }
 
 type MSSQL struct {

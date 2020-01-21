@@ -14,9 +14,10 @@ const (
 
 // Logger wrap zap.Logger
 type Logger struct {
-	Logger *zap.Logger
+	*zap.Logger
 }
 
+// New creates customized Logger
 func New(loggerType int) (*Logger, error) {
 	var (
 		err error

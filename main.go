@@ -16,8 +16,7 @@ func main() {
 	if err != nil {
 		log.Fatal(fmt.Sprintf("failed to init config: %+v", err))
 	}
-	var dsp *dispatcher.Dispatcher
-	dsp, err = dispatcher.New(config)
-	dsp.Dispatch()
+	dsptcher, err := dispatcher.New(config)
+	dsptcher.Dispatch()
 	wg.Wait()
 }
