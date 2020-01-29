@@ -1,8 +1,9 @@
 package net
 
 import (
-	"bufio"
 	"fmt"
+	"io/ioutil"
+
 	"github.com/stretchr/testify/assert"
 	"testing"
 
@@ -15,9 +16,39 @@ func TestListenDial(t *testing.T) {
 	config.Constants.My.ServerIP = ":5000"
 	config.Constants.My.HostAddress = ":5000"
 	network, err := NewNetwork(config)
-	go network.Listen()
-	conn, err := network.Dial()
-	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
-	status, err := bufio.NewReader(conn).ReadString('\n')
-	assert.NotNil(t, status, err)
+	message := "dial test!\n"
+
+	go func() {
+		conn, err := network.Dial()
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer conn.Close()
+
+		if _, err := fmt.Fprintf(conn, message); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	ln, err := network.Listen()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer ln.Close()
+	for {
+		conn, err := ln.Accept()
+		if err != nil {
+			return
+		}
+		defer conn.Close()
+
+		buf, err := ioutil.ReadAll(conn)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if msg := string(buf[:]); msg != message {
+			assert.Equal(t, message, msg)
+		}
+	}
 }

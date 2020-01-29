@@ -1,11 +1,11 @@
 package db
 
 import (
-	"github.com/stretchr/testify/assert"
-	"testing"
-
 	"database/sql"
 	_ "github.com/denisenkom/go-mssqldb"
+
+	"github.com/stretchr/testify/assert"
+	"testing"
 
 	"superdispatcher/config"
 )
