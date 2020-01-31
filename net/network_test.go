@@ -13,8 +13,6 @@ import (
 func TestListenDial(t *testing.T) {
 	//var err error
 	config, err := config.New("config", "../resources")
-	config.Constants.My.ServerIP = ":5000"
-	config.Constants.My.HostAddress = ":5000"
 	network, err := NewNetwork(config)
 	message := "dial test!\n"
 
@@ -50,5 +48,6 @@ func TestListenDial(t *testing.T) {
 		if msg := string(buf[:]); msg != message {
 			assert.Equal(t, message, msg)
 		}
+		return
 	}
 }

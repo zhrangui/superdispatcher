@@ -1,8 +1,8 @@
 My:
     LoggerType: 2
     Protocal: "tcp"
-    serverIP: "golang.org:80"
-    HostAddress: "golang.org:80"
+    serverIP: ":1234"
+    HostAddress: ":1234"
 
 MSSQL:
     ConnectionString: "server=CTV-PARALLEL5.Production.CTV.ca;user id=DevLogin;password=LoginDev1!;database=VideoWeb"

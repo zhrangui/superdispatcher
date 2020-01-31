@@ -16,7 +16,12 @@ func main() {
 	if err != nil {
 		log.Fatal(fmt.Sprintf("failed to init config: %+v", err))
 	}
-	dsptcher, err := dispatcher.New(config)
+
+	dsptcher, err := dispatcher.NewDispatcher(config)
+
+	if err != nil {
+		log.Fatal(fmt.Sprintf("can't start service: %+v", err))
+	}
 	dsptcher.Dispatch()
 	wg.Wait()
 }
