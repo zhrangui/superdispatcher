@@ -6,3 +6,9 @@ My:
 
 MSSQL:
     ConnectionString: "server=CTV-PARALLEL5.Production.CTV.ca;user id=DevLogin;password=LoginDev1!;database=VideoWeb"
+
+RabbitMQ:
+    User:     "mtsservice"
+    Password: "var10us!@#$"
+    Host:     "http://10.123.131.50"
+    Port:    15672

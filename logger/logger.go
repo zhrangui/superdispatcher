@@ -22,7 +22,7 @@ func New(loggerType int) (*Logger, error) {
 	var (
 		err error
 	)
-	logger := new(Logger)
+	logger := &Logger{}
 	switch loggerType {
 	case loggerTypeNop:
 		logger.Logger = zap.NewNop()

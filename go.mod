@@ -17,6 +17,7 @@ require (
 	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be // indirect
 	github.com/spf13/cast v1.3.0
 	github.com/spf13/viper v1.4.0
+	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71
 	github.com/stretchr/testify v1.3.0
 	github.com/xesina/golang-echo-realworld-example-app v0.1.0
 	go.uber.org/zap v1.10.0

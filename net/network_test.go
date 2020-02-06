@@ -3,9 +3,11 @@ package net
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
+
+	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"testing"
 
 	"superdispatcher/config"
 )
@@ -13,18 +15,23 @@ import (
 func TestListenDial(t *testing.T) {
 	//var err error
 	config, err := config.New("config", "../resources")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	network, err := NewNetwork(config)
+
 	message := "dial test!\n"
 
 	go func() {
 		conn, err := network.Dial()
 		if err != nil {
-			t.Fatal(err)
+			panic(err)
 		}
 		defer conn.Close()
 
 		if _, err := fmt.Fprintf(conn, message); err != nil {
-			t.Fatal(err)
+			panic(err)
 		}
 	}()
 

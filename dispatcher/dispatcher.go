@@ -16,7 +16,7 @@ type Dispatcher struct {
 // NewDispatcher creates service
 func NewDispatcher(config *config.Config) (*Dispatcher, error) {
 	var err error
-	dispatcher := new(Dispatcher)
+	dispatcher := &Dispatcher{}
 	dispatcher.network, err = net.NewNetwork(config)
 	return dispatcher, err
 }

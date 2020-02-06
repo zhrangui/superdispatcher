@@ -16,8 +16,9 @@ type Network struct {
 
 // NewNetwork creates network communication channel
 func NewNetwork(config *config.Config) (*Network, error) {
-	var net = new(Network)
-	net.config = config
+	var net = &Network{
+		config: config,
+	}
 	return net, nil
 }
 

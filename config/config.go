@@ -13,7 +13,7 @@ type Config struct {
 
 /*New create configuration*/
 func New(configName string, configPath string) (*Config, error) {
-	var config *Config = new(Config)
+
 	viper.SetConfigName(configName)
 	viper.AddConfigPath(configPath)
 	viper.AddConfigPath(".")
@@ -22,7 +22,9 @@ func New(configName string, configPath string) (*Config, error) {
 		return nil, err
 	}
 	viper.AutomaticEnv()
-	config.Constants = new(Constants)
+	var config *Config = &Config{}
+	config.Constants = &Constants{}
+
 	err = viper.Unmarshal(config.Constants)
 	if err != nil {
 		return nil, err
