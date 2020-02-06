@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"superdispatcher/config"
 
 	"github.com/streadway/amqp"
@@ -18,13 +19,11 @@ func NewRabbitMQ(cfg *config.Config) (*RabbitMQ, error) {
 	return rabbit, nil
 }
 
-func (rabbitMQ *RabbitMQ) Dial() error {
+func (rabbitMQ *RabbitMQ) Dial() (*amqp.Connection, error) {
 	cfg := rabbitMQ.config.Constants.RabbitMQ
-	conn, err := amqp.Dial("amqp://" + cfg.User + ":" + cfg.Password + "@" + cfg.Host + ":" + string(cfg.Port))
+	connString := fmt.Sprintf("amqp://%s:%s@%s:%d/", cfg.User, cfg.Password, cfg.Host, cfg.Port)
+	conn, err := amqp.Dial(connString)
 	defer conn.Close()
-	if err != nil {
-		rabbitMQ.config.Logger.Fatal(err.Error())
-	}
-
-	return err
+	rabbitMQ.config.Logger.FailOnError(err, fmt.Sprintf("failed to establish RabbitMQ connection: %s", connString))
+	return conn, err
 }

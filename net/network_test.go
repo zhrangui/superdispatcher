@@ -1,6 +1,8 @@
 package net
 
 import (
+	"superdispatcher/config"
+
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -8,8 +10,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	"superdispatcher/config"
 )
 
 func TestListenDial(t *testing.T) {
@@ -43,6 +43,7 @@ func TestListenDial(t *testing.T) {
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
+			t.Fatal(err)
 			return
 		}
 		defer conn.Close()

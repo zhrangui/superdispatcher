@@ -1,8 +1,9 @@
 package db
 
 import (
-	"log"
 	"superdispatcher/config"
+
+	"github.com/pkg/errors"
 
 	"testing"
 
@@ -11,10 +12,14 @@ import (
 
 func TestListenDial(t *testing.T) {
 	config, err := config.New("config", "../resources")
-	rabbitMQ, err := NewRabbitMQ(config)
-	if err != nil {
-		log.Fatal(err)
+	rabbitMQ, e := NewRabbitMQ(config)
+	if e != nil {
+		err = errors.Wrap(err, e.Error())
 	}
-	err = rabbitMQ.Dial()
+
+	_, e = rabbitMQ.Dial()
+	if e != nil {
+		err = errors.Wrap(err, e.Error())
+	}
 	assert.Nil(t, err)
 }

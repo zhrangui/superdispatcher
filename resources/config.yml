@@ -10,5 +10,5 @@ MSSQL:
 RabbitMQ:
     User:     "mtsservice"
     Password: "var10us!@#$"
-    Host:     "http://10.123.131.50"
+    Host:     "10.123.131.50"
     Port:    15672

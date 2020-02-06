@@ -43,3 +43,10 @@ func New(loggerType int) (*Logger, error) {
 	}
 	return logger, nil
 }
+
+// FailOnError exists system on fail
+func (logger *Logger) FailOnError(err error, msg string) {
+	if err != nil {
+		logger.Sugar().Fatalf("%s: %s", msg, err)
+	}
+}
