@@ -44,6 +44,13 @@ func New(loggerType int) (*Logger, error) {
 	return logger, nil
 }
 
+// Error logs fatal message
+func (logger *Logger) Error(err error, msg string) {
+	if err != nil {
+		logger.Fatal(errors.Wrap(err, msg).Error())
+	}
+}
+
 // FailOnError exists system on fail
 func (logger *Logger) FailOnError(err error, msg string) {
 	if err != nil {

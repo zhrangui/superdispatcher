@@ -11,4 +11,4 @@ RabbitMQ:
     User:     "mtsservice"
     Password: "var10us!@#$"
     Host:     "10.123.131.50"
-    Port:    15672
+    Port:    5672
