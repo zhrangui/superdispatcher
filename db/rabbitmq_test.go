@@ -10,11 +10,17 @@ import (
 
 func TestPublish(t *testing.T) {
 	config, err := config.New("config", "../resources")
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	rabbitMQ, err := NewRabbitMQ(config)
-	assert.Nil(t, err)
-	conn, err := rabbitMQ.Connect()
-	defer conn.Close()
-	rabbitMQ.Publish(conn, "Go Publish", "Raymond Test")
-	assert.Nil(t, err)
+	assert.NoError(t, err)
+
+	name := "Test"
+	message := "Raymond Test"
+	err = rabbitMQ.Publish(name, message)
+	assert.NoError(t, err)
+	msgs, err := rabbitMQ.Consume()
+	assert.NoError(t, err)
+	for m := range msgs {
+		assert.Equal(t, message, m.Body)
+	}
 }
