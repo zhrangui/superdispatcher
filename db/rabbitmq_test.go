@@ -20,7 +20,7 @@ func TestPublish(t *testing.T) {
 	assert.NoError(t, err)
 	msgs, err := rabbitMQ.Consume()
 	assert.NoError(t, err)
-	for m := range msgs {
-		assert.Equal(t, message, m.Body)
-	}
+	m := <-msgs
+	s := string(m.Body)
+	assert.Equal(t, message, s)
 }
