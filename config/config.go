@@ -34,8 +34,5 @@ func New(configName string, configPath string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	config.Logger.Info("Config init completes!")
-
 	return config, nil
 }

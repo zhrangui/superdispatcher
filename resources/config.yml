@@ -8,7 +8,9 @@ MSSQL:
     ConnectionString: "server=CTV-PARALLEL5.Production.CTV.ca;user id=DevLogin;password=LoginDev1!;database=VideoWeb"
 
 RabbitMQ:
-    User:     "mtsservice"
-    Password: "var10us!@#$"
+    Scheme: "amqp"
     Host:     "10.123.131.50"
     Port:    5672
+    User:     "mtsservice"
+    Password: "var10us!@#$"
+    Vhost: "agincourt"

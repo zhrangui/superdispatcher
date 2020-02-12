@@ -43,7 +43,7 @@ func (rabbitMQ *RabbitMQ) connect() (*amqp.Connection, error) {
 		return rabbitMQ.connection, nil
 	}
 	cfg := rabbitMQ.config.Constants.RabbitMQ
-	connString := fmt.Sprintf("amqp://%s:%s@%s:%d/", cfg.User, url.PathEscape(cfg.Password), cfg.Host, cfg.Port)
+	connString := fmt.Sprintf("amqp://%s:%s@%s:%d/%s", cfg.User, url.PathEscape(cfg.Password), cfg.Host, cfg.Port, cfg.Vhost)
 	conn, err := amqp.Dial(connString)
 	rabbitMQ.logError(err, fmt.Sprintf("failed to establish RabbitMQ connection: %+v", connString))
 	if err == nil {

@@ -18,8 +18,10 @@ type MSSQL struct {
 }
 
 type RabbitMQ struct {
-	User     string
-	Password string
+	Scheme   string
 	Host     string
 	Port     int
+	User     string
+	Password string
+	Vhost    string
 }
