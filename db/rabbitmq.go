@@ -16,9 +16,9 @@ type RabbitMQ struct {
 
 func (rabbitMQ *RabbitMQ) declareQueue(channel *amqp.Channel) (amqp.Queue, error) {
 	q, err := channel.QueueDeclare(
-		"superdispatcher_dev",
+		rabbitMQ.config.Constants.RabbitMQ.Qname,
 		false,
-		false,
+		true,
 		false,
 		false,
 		nil,

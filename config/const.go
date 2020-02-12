@@ -24,4 +24,5 @@ type RabbitMQ struct {
 	User     string
 	Password string
 	Vhost    string
+	Qname    string
 }

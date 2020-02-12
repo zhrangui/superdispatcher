@@ -9,8 +9,9 @@ MSSQL:
 
 RabbitMQ:
     Scheme: "amqp"
-    Host:     "10.123.131.50"
-    Port:    5672
-    User:     "mtsservice"
+    Host:   "10.123.14.200"
+    Port:   5672
+    User:   "mtsservice"
     Password: "var10us!@#$"
     Vhost: "agincourt"
+    Qname: "raymond.superdispatcher.requests"
