@@ -2,6 +2,7 @@ package net
 
 import (
 	"superdispatcher/config"
+	"superdispatcher/logger"
 
 	"fmt"
 	"io/ioutil"
@@ -18,10 +19,12 @@ func TestListenDial(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	logger, err := logger.NewLog(config)
+	network, err := NewNetwork(config, logger)
 
-	network, err := NewNetwork(config)
-
-	message := "dial test!\n"
+	const (
+		message = "dial test!"
+	)
 
 	go func() {
 		conn, err := network.Dial()
@@ -53,9 +56,8 @@ func TestListenDial(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		if msg := string(buf[:]); msg != message {
-			assert.Equal(t, message, msg)
-		}
+		msg := string(buf[:])
+		assert.Equal(t, message, msg)
 		return
 	}
 }

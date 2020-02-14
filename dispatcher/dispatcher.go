@@ -9,15 +9,18 @@ import (
 // Dispatcher exposes network communication
 type Dispatcher struct {
 	config  *config.Config
-	network *net.Network
 	logger  *logger.Logger
+	network *net.Network
 }
 
 // NewDispatcher creates service
-func NewDispatcher(config *config.Config) (*Dispatcher, error) {
+func NewDispatcher(config *config.Config, logger *logger.Logger) (*Dispatcher, error) {
+	dispatcher := &Dispatcher{
+		config: config,
+		logger: logger,
+	}
 	var err error
-	dispatcher := &Dispatcher{}
-	dispatcher.network, err = net.NewNetwork(config)
+	dispatcher.network, err = net.NewNetwork(config, logger)
 	return dispatcher, err
 }
 
@@ -29,18 +32,15 @@ func (dispatcher *Dispatcher) Dispatch() {
 func (dispatcher *Dispatcher) listen() {
 	ln, err := dispatcher.network.Listen()
 	if err != nil {
-		dispatcher.logger.Fatal(err.Error())
+		dispatcher.logger.Error(err, "Failed to listen")
 	}
 	defer ln.Close()
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
-			dispatcher.logger.Fatal(err.Error())
+			dispatcher.logger.Error(err, "Failed to accept")
 			return
 		}
 		defer conn.Close()
-		if err != nil {
-			dispatcher.logger.Fatal(err.Error())
-		}
 	}
 }

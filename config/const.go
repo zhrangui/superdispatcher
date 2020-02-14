@@ -4,6 +4,7 @@ type Constants struct {
 	My       My
 	MSSQL    MSSQL
 	RabbitMQ RabbitMQ
+	Log      string
 }
 
 type My struct {

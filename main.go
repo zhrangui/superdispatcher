@@ -6,6 +6,7 @@ import (
 
 	"superdispatcher/config"
 	"superdispatcher/dispatcher"
+	"superdispatcher/logger"
 )
 
 func main() {
@@ -15,8 +16,11 @@ func main() {
 	if err != nil {
 		log.Fatal(fmt.Sprintf("failed to init config: %+v", err))
 	}
-
-	dsptcher, err := dispatcher.NewDispatcher(config)
+	logger, err := logger.NewLog(config)
+	if err != nil {
+		log.Fatal(fmt.Sprintf("failed to init log: %+v", err))
+	}
+	dsptcher, err := dispatcher.NewDispatcher(config, logger)
 
 	if err != nil {
 		log.Fatal(fmt.Sprintf("can't start service: %+v", err))

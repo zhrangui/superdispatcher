@@ -15,3 +15,14 @@ RabbitMQ:
     Password: "var10us!@#$"
     Vhost: "agincourt"
     Qname: "raymond.superdispatcher.requests"
+
+Log: '{
+    "level": "debug",
+    "encoding": "json",
+    "outputPaths": ["stdout", "logs/log"],
+    "encoderConfig": {
+        "levelKey": "level",
+        "messageKey": "message",
+        "levelEncoder": "lowercase"
+    }
+  }'

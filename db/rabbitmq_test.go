@@ -2,6 +2,7 @@ package db
 
 import (
 	"superdispatcher/config"
+	"superdispatcher/logger"
 
 	"testing"
 
@@ -11,7 +12,8 @@ import (
 func TestPublish(t *testing.T) {
 	config, err := config.New("config", "../resources")
 	assert.NoError(t, err)
-	rabbitMQ, err := NewRabbitMQ(config)
+	logger, err := logger.NewLog(config)
+	rabbitMQ, err := NewRabbitMQ(config, logger)
 	assert.NoError(t, err)
 
 	name := "Test"

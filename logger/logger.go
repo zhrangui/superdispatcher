@@ -1,9 +1,18 @@
 package logger
 
 import (
+	"encoding/json"
+	"log"
+	"superdispatcher/config"
+
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
+
+// Logger wrap zap.Logger
+type Logger struct {
+	*zap.Logger
+}
 
 const (
 	loggerTypeNop = iota
@@ -12,48 +21,33 @@ const (
 	loggerTypeProduction
 )
 
-// Logger wrap zap.Logger
-type Logger struct {
-	*zap.Logger
-}
-
-// New creates customized Logger
-func New(loggerType int) (*Logger, error) {
-	var (
-		err error
-	)
-	logger := &Logger{}
-	switch loggerType {
-	case loggerTypeNop:
-		logger.Logger = zap.NewNop()
-	case loggerTypeDevelopment:
-		logger.Logger, err = zap.NewDevelopment()
-		if err != nil {
-			err = errors.Wrap(err, "failed to initialize development logger")
-			return nil, err
-		}
-	case loggerTypeProduction:
-		logger.Logger, err = zap.NewProduction()
-		if err != nil {
-			err = errors.Wrap(err, "failed to initialize production logger")
-			return nil, err
-		}
-	default:
-		logger.Logger = zap.NewExample()
+// NewLog creates customized Logger
+func NewLog(config *config.Config) (*Logger, error) {
+	var cfg zap.Config
+	if err := json.Unmarshal([]byte(config.Constants.Log), &cfg); err != nil {
+		log.Fatal(err)
 	}
-	return logger, nil
+	var err error
+	lg, err := cfg.Build()
+	if err != nil {
+		log.Fatal(err)
+	}
+	logger := &Logger{
+		Logger: lg,
+	}
+	return logger, err
 }
 
 // Error logs fatal message
 func (logger *Logger) Error(err error, msg string) {
 	if err != nil {
-		logger.Fatal(errors.Wrap(err, msg).Error())
+		logger.Logger.Error(errors.Wrap(err, msg).Error())
 	}
 }
 
 // FailOnError exists system on fail
 func (logger *Logger) FailOnError(err error, msg string) {
 	if err != nil {
-		logger.Sugar().Fatalf("%s: %s", msg, err)
+		logger.Logger.Fatal(errors.Wrap(err, msg).Error())
 	}
 }
