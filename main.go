@@ -25,6 +25,7 @@ func main() {
 	if err != nil {
 		log.Fatal(fmt.Sprintf("can't start service: %+v", err))
 	}
+
 	dsptcher.Dispatch()
 
 	<-forever

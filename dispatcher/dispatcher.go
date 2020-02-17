@@ -8,8 +8,8 @@ import (
 
 // Dispatcher exposes network communication
 type Dispatcher struct {
+	*logger.Logger
 	config  *config.Config
-	logger  *logger.Logger
 	network *net.Network
 }
 
@@ -17,10 +17,12 @@ type Dispatcher struct {
 func NewDispatcher(config *config.Config, logger *logger.Logger) (*Dispatcher, error) {
 	dispatcher := &Dispatcher{
 		config: config,
-		logger: logger,
+		Logger: logger,
 	}
 	var err error
-	dispatcher.network, err = net.NewNetwork(config, logger)
+	dispatcher.network, err = net.NewNetwork(config)
+	dispatcher.network.Logger = logger
+
 	return dispatcher, err
 }
 
@@ -32,13 +34,13 @@ func (dispatcher *Dispatcher) Dispatch() {
 func (dispatcher *Dispatcher) listen() {
 	ln, err := dispatcher.network.Listen()
 	if err != nil {
-		dispatcher.logger.Error(err, "Failed to listen")
+		dispatcher.Logger.Error(err, "Failed to listen")
 	}
 	defer ln.Close()
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
-			dispatcher.logger.Error(err, "Failed to accept")
+			dispatcher.Logger.Error(err, "Failed to accept")
 			return
 		}
 		defer conn.Close()

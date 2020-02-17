@@ -13,11 +13,11 @@ import (
 // Network functionalities
 type Network struct {
 	config *config.Config
-	logger *logger.Logger
+	*logger.Logger
 }
 
 // NewNetwork creates network communication channel
-func NewNetwork(config *config.Config, logger *logger.Logger) (*Network, error) {
+func NewNetwork(config *config.Config) (*Network, error) {
 	var net = &Network{
 		config: config,
 	}
@@ -29,7 +29,7 @@ func (network *Network) Dial() (net.Conn, error) {
 	conn, err := net.Dial(network.config.Constants.My.Protocal, network.config.Constants.My.HostAddress)
 	if err != nil {
 		e := fmt.Sprintf("Fail to connect: %s", network.config.Constants.My.HostAddress)
-		network.logger.Fatal(e)
+		network.Logger.Fatal(e)
 		err = errors.Wrap(err, e)
 	}
 	return conn, err
@@ -40,7 +40,7 @@ func (network *Network) Listen() (net.Listener, error) {
 	conn, err := net.Listen(network.config.Constants.My.Protocal, network.config.Constants.My.ServerIP)
 	if err != nil {
 		e := fmt.Sprintf("Fail to connect: %s", network.config.Constants.My.ServerIP)
-		network.logger.Fatal(e)
+		network.Logger.Fatal(e)
 		err = errors.Wrap(err, e)
 	}
 	return conn, err

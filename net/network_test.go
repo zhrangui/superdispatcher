@@ -1,6 +1,7 @@
 package net
 
 import (
+	"os"
 	"superdispatcher/config"
 	"superdispatcher/logger"
 
@@ -13,15 +14,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func init() {
+	os.Chdir("..")
+}
+
 func TestListenDial(t *testing.T) {
 	//var err error
-	config, err := config.New("config", "../resources")
+	config, err := config.New("config", "resources")
 	if err != nil {
 		log.Fatal(err)
 	}
 	logger, err := logger.NewLog(config)
-	network, err := NewNetwork(config, logger)
-
+	network, err := NewNetwork(config)
+	network.Logger = logger
 	const (
 		message = "dial test!"
 	)

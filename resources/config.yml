@@ -19,7 +19,7 @@ RabbitMQ:
 Log: '{
     "level": "debug",
     "encoding": "json",
-    "outputPaths": ["stdout", "logs/log"],
+    "outputPaths": ["stdout", "logs/log.txt"],
     "encoderConfig": {
         "levelKey": "level",
         "messageKey": "message",
