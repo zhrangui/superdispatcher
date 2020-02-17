@@ -8,7 +8,6 @@ type Constants struct {
 }
 
 type My struct {
-	LoggerType  int
 	Protocal    string
 	ServerIP    string
 	HostAddress string

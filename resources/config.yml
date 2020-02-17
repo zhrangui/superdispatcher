@@ -1,5 +1,4 @@
 My:
-    LoggerType: 2
     Protocal: "tcp"
     serverIP: ":1234"
     HostAddress: ":1234"
@@ -22,6 +21,7 @@ Log: '{
     "outputPaths": ["stdout", "logs/log.txt"],
     "encoderConfig": {
         "levelKey": "level",
+        "timeKey": "timestamp"
         "messageKey": "message",
         "levelEncoder": "lowercase"
     }
