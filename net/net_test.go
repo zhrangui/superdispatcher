@@ -25,14 +25,14 @@ func TestListenDial(t *testing.T) {
 		log.Fatal(err)
 	}
 	logger, err := logger.NewLog(config)
-	network, err := NewNetwork(config)
-	network.Logger = logger
+	Net, err := NewNet(config)
+	Net.Logger = logger
 	const (
 		message = "dial test!"
 	)
 
 	go func() {
-		conn, err := network.Dial()
+		conn, err := Net.Dial()
 		if err != nil {
 			panic(err)
 		}
@@ -43,7 +43,7 @@ func TestListenDial(t *testing.T) {
 		}
 	}()
 
-	ln, err := network.Listen()
+	ln, err := Net.Listen()
 	if err != nil {
 		t.Fatal(err)
 	}

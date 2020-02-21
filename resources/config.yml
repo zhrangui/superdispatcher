@@ -21,7 +21,7 @@ Log: '{
     "outputPaths": ["stdout", "logs/log.txt"],
     "encoderConfig": {
         "levelKey": "level",
-        "timeKey": "timestamp"
+        "timeKey": "timestamp",
         "messageKey": "message",
         "levelEncoder": "lowercase"
     }

@@ -14,13 +14,6 @@ type Logger struct {
 	*zap.Logger
 }
 
-const (
-	loggerTypeNop = iota
-	loggerTypeDevelopment
-	loggerTypeExample
-	loggerTypeProduction
-)
-
 // NewLog creates customized Logger
 func NewLog(config *config.Config) (*Logger, error) {
 	var cfg zap.Config

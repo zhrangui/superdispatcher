@@ -6,11 +6,11 @@ import (
 	"superdispatcher/net"
 )
 
-// Dispatcher exposes network communication
+// Dispatcher exposes Net communication
 type Dispatcher struct {
 	*logger.Logger
-	config  *config.Config
-	network *net.Network
+	config *config.Config
+	Net    *net.Net
 }
 
 // NewDispatcher creates service
@@ -20,8 +20,8 @@ func NewDispatcher(config *config.Config, logger *logger.Logger) (*Dispatcher, e
 		Logger: logger,
 	}
 	var err error
-	dispatcher.network, err = net.NewNetwork(config)
-	dispatcher.network.Logger = logger
+	dispatcher.Net, err = net.NewNet(config)
+	dispatcher.Net.Logger = logger
 
 	return dispatcher, err
 }
@@ -32,7 +32,7 @@ func (dispatcher *Dispatcher) Dispatch() {
 }
 
 func (dispatcher *Dispatcher) listen() {
-	ln, err := dispatcher.network.Listen()
+	ln, err := dispatcher.Net.Listen()
 	if err != nil {
 		dispatcher.Logger.Error(err, "Failed to listen")
 	}
