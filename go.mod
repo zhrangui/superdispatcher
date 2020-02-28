@@ -7,6 +7,8 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-playground/locales v0.12.1 // indirect
 	github.com/go-playground/universal-translator v0.16.0 // indirect
+	github.com/go-sql-driver/mysql v1.4.1
+	github.com/google/uuid v1.1.1
 	github.com/gosimple/slug v1.5.0
 	github.com/jinzhu/gorm v1.9.8
 	github.com/labstack/echo v3.3.10+incompatible // indirect

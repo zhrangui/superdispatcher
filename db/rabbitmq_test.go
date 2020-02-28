@@ -1,7 +1,6 @@
 package db
 
 import (
-	"os"
 	"superdispatcher/config"
 	"superdispatcher/logger"
 
@@ -9,10 +8,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 )
-
-func init() {
-	os.Chdir("..")
-}
 
 func TestPublish(t *testing.T) {
 	config, err := config.New("config", "resources")

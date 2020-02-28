@@ -30,9 +30,10 @@ func (rabbitMQ *RabbitMQ) declareQueue(channel *amqp.Channel) (amqp.Queue, error
 }
 
 // NewRabbitMQ creates RabbitMQ client instance
-func NewRabbitMQ(cfg *config.Config) (*RabbitMQ, error) {
-	var rabbit = &RabbitMQ{}
-	rabbit.config = cfg
+func NewRabbitMQ(config *config.Config) (*RabbitMQ, error) {
+	var rabbit = &RabbitMQ{
+		config: config,
+	}
 	return rabbit, nil
 }
 

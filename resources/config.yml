@@ -4,7 +4,7 @@ My:
     HostAddress: ":1234"
 
 MSSQL:
-    ConnectionString: "server=CTV-PARALLEL5.Production.CTV.ca;user id=DevLogin;password=LoginDev1!;database=VideoWeb"
+    ConnectionString: "sqlserver://DevLogin:LoginDev1!@CTV-PARALLEL5.Production.CTV.ca?database=VideoWeb"
 
 RabbitMQ:
     Scheme: "amqp"
