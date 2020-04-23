@@ -87,7 +87,7 @@ func main() {
 	router := gin.Default()
 
 	// Serve the frontend
-	router.Use(static.Serve("/", static.LocalFile("./views", true)))
+	router.Use(static.Serve("/", static.LocalFile("../client/build", true)))
 
 	api := router.Group("/api")
 	{
