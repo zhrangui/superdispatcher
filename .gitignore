@@ -1,8 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/bower_components
+node_modules
+bower_components
 
 # IDEs and editors
 /.idea
@@ -20,5 +20,3 @@ vendor/
 *.db
 .vscode/
 
-# ignore default binary name generated with Makefile
-golang-echo-realworld-example-app
