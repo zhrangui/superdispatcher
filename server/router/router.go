@@ -1,7 +1,6 @@
 package router
 
 import (
-	"superdispatcher/server/middleware"
 	"github.com/gorilla/mux"
 )
 
