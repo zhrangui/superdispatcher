@@ -24,6 +24,7 @@ require (
 	github.com/xesina/golang-echo-realworld-example-app v0.1.0
 	go.mongodb.org/mongo-driver v1.3.2
 	go.uber.org/zap v1.10.0
+	golang.org/x/sys v0.0.0-20200116001909-b77594299b42
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v9 v9.28.0
 )
